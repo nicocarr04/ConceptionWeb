@@ -4,9 +4,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 
-import dotenv from 'dotenv'
+import db from './connection.js'
 
-const PORT = dotenv.config().parsed.PORT
+db.sync()
+
+const PORT = process.env.PORT
 
 const app = express()
 
