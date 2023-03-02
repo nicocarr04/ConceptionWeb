@@ -6,6 +6,9 @@ import users from "./Users.js";
 users.hasMany(notes)
 notes.belongsTo(users)
 
+users.hasMany(matieres)
+matieres.belongsTo(users)
+
 matieres.hasMany(notes)
 notes.belongsTo(matieres)
 
