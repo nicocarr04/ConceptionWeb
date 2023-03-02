@@ -1,0 +1,32 @@
+{
+  "name": "conceptionweb",
+  "version": "1.0.0",
+  "description": "Ceci est un projet de groupe de long durée.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicocarr04/ConceptionWeb.git"
+  },
+  "author": "Nicolas Carriere, Simon Batista",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicocarr04/ConceptionWeb/issues"
+  },
+  "homepage": "https://github.com/nicocarr04/ConceptionWeb#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "mysql2": "^3.1.2",
+    "nodemon": "^2.0.21",
+    "sequelize": "^6.29.0"
+  }
+}
