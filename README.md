@@ -5,4 +5,4 @@ Un projet qui a pour but de mettre en pratique les cours de programmation web de
 Faite par Simon et Nicolas.
 
 
-![image](https://user-images.githubusercontent.com/77184162/222568117-92217ffc-b6d2-4a8a-8264-812f8d4d200e.png)
+![image](https://user-images.githubusercontent.com/77184162/222568401-1a56793a-a14e-4f7e-afd3-26eb9d6fa05f.png)
