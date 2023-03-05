@@ -8,7 +8,7 @@ export const getMatiereById = async (req, res) => {
 
 }
 
-export const getNoteByProfesseurId = async (req, res) => {
+export const getMatiereByProfesseurId = async (req, res) => {
     
 }
 

@@ -1,7 +1,7 @@
 import { users } from "../models/index.js"
 
 export const addUser = async (req, res) => {
-
+    
 }
 
 export const deleteUser = async (req, res) => {
