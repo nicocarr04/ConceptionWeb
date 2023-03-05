@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize"
+import database from "../connection.js";
 
 const notes = database.define('notes', {
     userid: { type: DataTypes.INTEGER, allowNull: false },

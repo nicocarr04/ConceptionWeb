@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize"
+import database from "../connection.js";
 
 const matieres = database.define('matieres', {
     professeurid: { type: DataTypes.INTEGER, allowNull: false },

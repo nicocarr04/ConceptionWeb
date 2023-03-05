@@ -11,7 +11,5 @@ router
     .put('/:id', updateRole)
     .delete('/:id', deleteRole)
 
-
-
 export default router
 

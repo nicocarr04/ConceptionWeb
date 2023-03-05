@@ -13,10 +13,7 @@ router
     .get('/', getUserNotes)
     .get('/', getProfesseurMatieres)
     .delete('/:id', deleteUser)
-    .update('/:id', updateUser)
-
-
-
+    .put('/:id', updateUser)
 
 export default router
 
