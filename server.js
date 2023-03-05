@@ -6,6 +6,11 @@ import compression from 'compression';
 
 import db from './connection.js'
 
+import matieresRoutes from './routes/matieresRoutes.js'
+import notesRoutes from './routes/notesRoutes.js'
+import rolesRoutes from './routes/rolesRoutes.js'
+import usersRoutes from '/routes/usersRoutes.js'
+
 db.sync()
 
 const PORT = process.env.PORT
@@ -13,3 +18,8 @@ const PORT = process.env.PORT
 const app = express()
 
 app.listen(PORT, () => console.log(`Serveur running on port ${PORT}`))
+
+app.use('/roles',rolesRoutes)
+app.use('/notes',notesRoutes)
+app.use('/matieres',matieresRoutes)
+app.use('/users',usersRoutes)
