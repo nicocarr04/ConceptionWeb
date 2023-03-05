@@ -12,7 +12,7 @@ matieres.belongsTo(users)
 matieres.hasMany(notes)
 notes.belongsTo(matieres)
 
-users.hasOne(roles)
+users.hasMany(roles)
 roles.belongsTo(users)
 
 export { matieres, notes, users, roles}
