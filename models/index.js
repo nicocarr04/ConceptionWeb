@@ -7,12 +7,12 @@ users.hasMany(notes)
 notes.belongsTo(users)
 
 users.hasMany(matieres)
-matieres.belongsTo(users)
+matieres.belongsToMany(users, {through: "UsersMatieres"}) // Fix doublons ici?
 
 matieres.hasMany(notes)
 notes.belongsTo(matieres)
 
 users.hasMany(roles)
-roles.belongsTo(users)
+roles.belongsToMany(users, {through: "UsersRoles"}) // Fix doublons ici?
 
 export { matieres, notes, users, roles}
