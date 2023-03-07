@@ -10,8 +10,8 @@ router
     .post('/id/matieres', createProfesseurMatiere)
     .get('/:id', getUserById)
     .get('/', getAllUsers)
-    .get('/', getUserNotes)
-    .get('/', getProfesseurMatieres)
+    .get('/:id/notes', getUserNotes)
+    .get('/:id/matieres', getProfesseurMatieres)
     .delete('/:id', deleteUser)
     .put('/:id', updateUser)
 
