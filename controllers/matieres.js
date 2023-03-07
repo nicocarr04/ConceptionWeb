@@ -13,22 +13,24 @@ export const getMatiereById = async (req, res) => {
     const { id } = req.params
     if (!id) return res.status(404).json({ message: 'id est obligatoire!' })
     try {
-        const result = await matieres.findByPk(id, { include: ['notes'] })  
+        const result = await matieres.findByPk(id, { include: ['users'] })  
         res.status(200).json({ data: result })
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
 }
 
+// PS: Ce fier à getUserNotes
 export const getMatiereByProfesseurId = async (req, res) => {
-    const { id } = req.params
-    if (!id) return res.status(404).json({ message: 'id est obligatoire!' })
+    const professeurid = req.params.id
+    if (!professeurid) res.status(404).json({ error: true, message: error.message })
+
     try {
-        // TODO: Ont veux pas chercher par la Pk mais bien par le professeurid
-        const result = await matieres.find(id, { include: ['notes'], where: { professeurid } })  
-        res.status(200).json({ data: result })
+        const currentProfesseur = await users.findByPk(professeurid)
+        const result = await currentProfesseur.getMatieres()
+        res.status(200).json({ data: result, message: 'Matiere retournée!' })
     } catch (error) {
-        res.status(404).json({ message: error.message })
+        res.status(400).json({ message: error.message })
     }
 }
 
@@ -46,8 +48,8 @@ export const deleteMatiere = async (req, res) => {
 export const updateMatiere = async (req, res) => {
     const { id } = req.params
 
-    const { professeurid, titre } = req.body
-    const updatedMatiere = { professeurid, titre }
+    const { /*professeurid,*/ titre } = req.body
+    const updatedMatiere = { /*professeurid,*/ titre }
 
     if (!id) return res.status(404).json({ message: 'id est obligatoire!' })
 

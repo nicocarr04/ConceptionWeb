@@ -1,4 +1,4 @@
-import { notes } from "../models/index.js"
+import { matieres, notes } from "../models/index.js"
 
 export const getAllNotes = async (req, res) => {
     try {
@@ -21,26 +21,29 @@ export const getNoteById = async (req, res) => {
 }
 
 export const getNoteByMatiereId = async (req, res) => {
-    const { id } = req.params
-    if (!id) return res.status(404).json({ message: 'id est obligatoire!' })
+    const matiereid = req.params.id
+    if (!matiereid) res.status(404).json({ error: true, message: error.message })
+
     try {
-        // TODO: Ont veux pas chercher par la Pk mais bien par le matiereid
-        const result = await notes.find(id, { include: ['users', 'matieres'], where: { matiereid } })  
-        res.status(200).json({ data: result })
+        const currentMatiereId = await matieres.findByPk(matiereid)
+        const result = await currentMatiereId.getNotes()
+        res.status(200).json({ data: result, message: 'Note retournée!' })
     } catch (error) {
-        res.status(404).json({ message: error.message })
+        res.status(400).json({ message: error.message })
     }
 }
 
+//TODO: Ont a vraiment besoin de sa ou c'est dupe de getUserNotes?
 export const getNoteByUserId = async (req, res) => {
-    const { id } = req.params
-    if (!id) return res.status(404).json({ message: 'id est obligatoire!' })
+    const userid = req.params.id
+    if (!userid) res.status(404).json({ error: true, message: error.message })
+
     try {
-        // TODO: Ont veux pas chercher par la Pk mais bien par le userid
-        const result = await notes.find(id, { include: ['users', 'matieres'], where: { userid } })  
-        res.status(200).json({ data: result })
+        const currentUser = await users.findByPk(userid)
+        const result = await currentUser.getNotes()
+        res.status(200).json({ data: result, message: 'Note retournée!' })
     } catch (error) {
-        res.status(404).json({ message: error.message })
+        res.status(400).json({ message: error.message })
     }
 }
 
@@ -58,8 +61,8 @@ export const deleteNote = async (req, res) => {
 export const updateNote = async (req, res) => {
     const { id } = req.params
 
-    const { userid, matiereid, note, date } = req.body
-    const updatedNote = { userid, matiereid, note, date }
+    const { /*userid, matiereid,*/ note, date } = req.body
+    const updatedNote = { /*userid, matiereid,*/ note, date }
 
     if (!id) return res.status(404).json({ message: 'id est obligatoire!' })
 
