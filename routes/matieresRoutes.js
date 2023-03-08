@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import { getAllMatieres, getMatiereById, getMatiereByProfesseurId, deleteMatiere, updateMatiere  } from "../controllers/matieres.js";
 
 const router = Router()
