@@ -2,6 +2,33 @@ import { users } from "../models/index.js"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 
+export const userLogin = async (req, res) => {
+    const { email, mot_de_passe } = req.body
+    if (email) {
+        try {
+            const user = await users.findOne({ where: { email } })
+            // console.log("User pass", user, "req pass", password)
+
+            if (!user) res.status(404).json({ message: "No such user exists" })
+
+            //Verification en comparant les mots de passe
+            const verifyPassword = await bcrypt.compare(mot_de_passe, user.mot_de_passe)
+
+            //Si les mots de passe sont identiques
+            if (verifyPassword) {
+                let payload = { id: user.id }
+                let token = jwt.sign(payload, process.env.TOKEN_SECRET)
+                res.status(200).json({ data: { user, token } })
+            } else {
+                res.status(401).json({ message: "Le mot de passe est incorrect" })
+            }
+
+        } catch (error) {
+            res.status(401).json({ message: error.message })
+        }
+    }
+}
+
 export const addUser = async (req, res) => {
     const { nom, prenom, naissance, photo, telephone, email, mot_de_passe/*, roleid*/ } = req.body
     const newUser = { nom, prenom, naissance, photo, telephone, email, mot_de_passe/*, roleid*/ }

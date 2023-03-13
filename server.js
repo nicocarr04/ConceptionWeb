@@ -1,4 +1,5 @@
 import express from 'express'
+import passport from 'passport'
 
 import database from './connection.js'
 
