@@ -1,4 +1,6 @@
 import { users } from "../models/index.js"
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 
 export const addUser = async (req, res) => {
     const { nom, prenom, naissance, photo, telephone, email, mot_de_passe/*, roleid*/ } = req.body
