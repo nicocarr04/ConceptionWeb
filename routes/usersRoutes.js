@@ -10,7 +10,7 @@ router
     .post('/login', userLogin)
     .post('/', usersRules, addUser)
     .post('/:id/notes', notesRules, createUserNote)
-    .post('/id/matieres', matieresRules, createProfesseurMatiere)
+    .post('/:id/matieres', matieresRules, createProfesseurMatiere)
     .get('/:id', getUserById)
     .get('/', getAllUsers)
     .get('/:id/notes', getUserNotes)

@@ -13,7 +13,7 @@ export const getNoteById = async (req, res) => {
     const { id } = req.params
     if (!id) return res.status(404).json({ message: 'id est obligatoire!' })
     try {
-        const result = await notes.findByPk(id, { include: ['users', 'matieres'] })  
+        const result = await notes.findByPk(id)  
         res.status(200).json({ data: result })
     } catch (error) {
         res.status(404).json({ message: error.message })

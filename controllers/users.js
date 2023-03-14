@@ -1,6 +1,7 @@
-import { users } from "../models/index.js"
+import { matieres, users } from "../models/index.js"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import { body } from "express-validator"
 
 export const userLogin = async (req, res) => {
     const { email, mot_de_passe } = req.body
@@ -30,8 +31,9 @@ export const userLogin = async (req, res) => {
 }
 
 export const addUser = async (req, res) => {
-    const { nom, prenom, naissance, photo, telephone, email, mot_de_passe/*, roleid*/ } = req.body
-    const newUser = { nom, prenom, naissance, photo, telephone, email, mot_de_passe/*, roleid*/ }
+    console.log("body", req.body)
+    const { nom, prenom, naissance, photo, telephone, email, mot_de_passe } = req.body
+    const newUser = { nom, prenom, naissance, photo, telephone, email, mot_de_passe }
 
     try {
         const result = await users.create(newUser)
@@ -84,7 +86,7 @@ export const getUserById = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
     try { // Marche danas notre cas vu qu'un prof peut-être un élève fictif
-        const result = await users.findAll({include: 'Notes'})
+        const result = await users.findAll()
         res.status(200).json({ data: result, message: "Tous les users reçus!" })
 
     } catch (error) {
@@ -95,12 +97,12 @@ export const getAllUsers = async (req, res) => {
 export const createUserNote = async (req, res) => {
     const userid = req.params.id
     if (!userid) res.status(404).json({ error: true, message: error.message })
-    const { /*userid, matiereid,*/ note, date } = req.body
-    const newNote = { /*userid, matiereid,*/ note, date }
+    const { note, date } = req.body
+    const newNote = { note, date }
 
     try {
         const currentUser = await users.findByPk(userid)
-        const result = await currentUser.createNotes(newNote)
+        const result = await currentUser.createNote(newNote)
         res.status(201).json({ data: result, message: 'Note ajoutée!' })
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -128,7 +130,7 @@ export const createProfesseurMatiere = async (req, res) => {
 
     try {                    // Raison user car le prof est un users 
         const currentProfesseur = await users.findByPk(professeurid)
-        const result = await currentProfesseur.createMatieres(newMatiere)
+        const result = await currentProfesseur.createMatiere(newMatiere)
         res.status(201).json({ data: result, message: 'Matière ajoutée!' })
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -140,7 +142,7 @@ export const getProfesseurMatieres = async (req, res) => {
     if (!professeurid) res.status(404).json({ error: true, message: error.message })
 
     try {
-        const currentProfesseur = await professeurid.findByPk(userId)
+        const currentProfesseur = await users.findByPk(professeurid)
         const result = await currentProfesseur.getMatieres()
         res.status(200).json({ data: result, message: 'Matière retournée!' })
     } catch (error) {

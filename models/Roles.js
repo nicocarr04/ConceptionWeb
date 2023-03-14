@@ -8,4 +8,6 @@ const roles = database.define('roles', {
 { timestamps: false} 
 )
 
+// roles.sync([force: true])
+
 export default roles
