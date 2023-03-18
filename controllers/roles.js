@@ -1,4 +1,4 @@
-import { roles } from "../models/index.js"
+/*import { roles } from "../models/index.js"
 
 export const addRole = async (req, res) => {
     const { nom } = req.body
@@ -58,4 +58,4 @@ export const getAllRoles = async (req, res) => {
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
-}
+}*/

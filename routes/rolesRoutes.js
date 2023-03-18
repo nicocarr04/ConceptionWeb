@@ -1,8 +1,8 @@
-import { Router } from "express";
+/* import { Router } from "express";
 import rolesRules from "../validations/rolesValidations.js";
 import { addRole, deleteRole, updateRole, getRoleById, getAllRoles } from "../controllers/roles.js";
 import passport from 'passport'
-import { verifierToken, isAdmin, isAdmin2 } from '../auth/autorisations.js'
+import { verifierToken, isAdmin } from '../auth/autorisations.js'
 
 const router = Router()
 
@@ -14,4 +14,4 @@ router
     .delete('/:id', deleteRole)
 
 export default router
-
+*/

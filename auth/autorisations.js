@@ -31,20 +31,20 @@ export const isAdmin = async (req, res, next) => {
     const userId = req.userId
 
     //Retourner ce message si pas de userId
-    if (!userId) return res.status(403).json({ message: "Pas d'utilisateur" })
+    if (!userId) return res.status(403).json({ message: "Pas d'utilisateur!" })
 
     try {
         const user = await users.findByPk(userId)
 
         //Si pas de user, retourner ce message
-        if (!user) return res.status(404).json({ message: 'utilisateur non existant' })
+        if (!user) return res.status(404).json({ message: 'utilisateur non existant!' })
 
         try {
             //Extraire les roles de l'utilisateur de la base de donnee
             const roles = await user.getRoles()
 
             //Si pas de roles, retourner ce message
-            if (!roles.length) return res.status(404).json({ message: 'Pas de roles' })
+            if (!roles.length) return res.status(404).json({ message: 'Pas de roles!' })
 
             //Verifier que l'utilisateur est admin
             const hasAdminRight = roles.map(role => role.nom).find(nom => nom.toLowerCase() === 'admin')
@@ -54,7 +54,7 @@ export const isAdmin = async (req, res, next) => {
             }
 
             //Si l'utilisateur n'est pas admin, envoyer ce message
-            return res.status(403).json({ message: 'Doit avoir les droits admin' })
+            return res.status(403).json({ message: 'Doit avoir les droits admin!' })
 
         } catch (error) {
             return res.status(403).json({ message: error.message })
@@ -66,35 +66,44 @@ export const isAdmin = async (req, res, next) => {
     }
 }
 
+// Verifier si quelqu'un a le droit professeur
+export const isProfesseur = async (req, res, next) => {
 
-//Le meme middleware que precedemment avec then...catch blocs
-export const isAdmin2 = (req, res, next) => {
+    //Extraire le userId de la requete precedente
     const userId = req.userId
 
-    if (!userId) return res.status(403).json({ message: "Pas d'utilisateur" })
+    //Retourner ce message si pas de userId
+    if (!userId) return res.status(403).json({ message: "Pas d'utilisateur!" })
 
-    users.findByPk(userId).then(user => {
+    try {
+        const user = await users.findByPk(userId)
 
-        if (!user) return res.status(404).json({ message: 'utilisateur non existant' })
+        //Si pas de user, retourner ce message
+        if (!user) return res.status(404).json({ message: 'utilisateur non existant!' })
 
-        user.getRoles().then(roles => {
+        try {
+            //Extraire les roles de l'utilisateur de la base de donnee
+            const roles = await user.getRoles()
 
-            const hasAdminRight = roles.map(role => role.nom).find(nom => nom.toLowerCase() === 'admin')
+            //Si pas de roles, retourner ce message
+            if (!roles.length) return res.status(404).json({ message: 'Pas de roles!' })
 
-            if (hasAdminRight) {
+            //Verifier que l'utilisateur est professeur
+            const hasProfessorRight = roles.map(role => role.nom).find(nom => nom.toLowerCase() === 'professeur')
+            if (hasProfessorRight) {
                 next()
                 return
             }
-            return res.status(403).json({ message: 'Doit avoir les droits admin' })
 
-        }).catch(error => {
-            res.status(404).jscon({ message: error.message })
+            //Si l'utilisateur n'est pas professeur, envoyer ce message
+            return res.status(403).json({ message: 'Doit avoir les droits professeur!' })
 
-        })
+        } catch (error) {
+            return res.status(403).json({ message: error.message })
+        }
 
-    }).catch(error => {
-        res.status(401).json({ message: error.message })
-    })
+    } catch (error) {
+        return res.status(403).json({ message: error.message })
 
-
+    }
 }

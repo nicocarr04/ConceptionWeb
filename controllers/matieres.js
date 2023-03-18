@@ -1,4 +1,4 @@
-import { matieres } from "../models/index.js"
+/* import { matieres } from "../models/index.js"
 
 export const getAllMatieres = async (req, res) => {
     try {
@@ -48,8 +48,8 @@ export const deleteMatiere = async (req, res) => {
 export const updateMatiere = async (req, res) => {
     const { id } = req.params
 
-    const { /*professeurid,*/ titre } = req.body
-    const updatedMatiere = { /*professeurid,*/ titre }
+    const { titre } = req.body
+    const updatedMatiere = { titre }
 
     if (!id) return res.status(404).json({ message: 'id est obligatoire!' })
 
@@ -60,4 +60,4 @@ export const updateMatiere = async (req, res) => {
     } catch (error) {
         res.status(404).json({ error: true, message: error.message })
     }
-}
+} */
