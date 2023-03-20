@@ -7,14 +7,14 @@ users.hasMany(notes)
 notes.belongsTo(users)
 
 // users.hasMany(matieres)
-users.belongsToMany(matieres, {through: "UsersMatieres"}) // Fixe temporaire pour rajouter Matiere à User/
+users.belongsToMany(matieres, {through: "UsersMatieres"}) 
 matieres.belongsToMany(users, {through: "UsersMatieres"}) 
 
 matieres.hasMany(notes)
 notes.belongsTo(matieres)
 
 // users.hasMany(roles)
-users.belongsToMany(roles, {through: "UsersRoles"}) // Fixe temporaire pour rajouter Role
+users.belongsToMany(roles, {through: "UsersRoles"}) 
 roles.belongsToMany(users, {through: "UsersRoles"}) 
 
 export { matieres, notes, users, roles}

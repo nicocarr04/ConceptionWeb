@@ -133,39 +133,6 @@ export const getUserNotes = async (req, res) => {
     }
 }
 
-export const createProfesseurMatiere = async (req, res) => {
-    const  professeurid = req.params.id
-    if (!professeurid) res.status(404).json({ error: true, message: error.message })
-    const { titre } = req.body
-    const newMatiere = { titre }
-
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array()})
-    }
-
-    try {                    // Raison user car le prof est un users 
-        const currentProfesseur = await users.findByPk(professeurid)
-        const result = await currentProfesseur.createMatiere(newMatiere)
-        res.status(201).json({ data: result, message: 'Matière ajoutée!' })
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-}
-
-export const getProfesseurMatieres = async (req, res) => {
-    const professeurid = req.params.id
-    if (!professeurid) res.status(404).json({ error: true, message: error.message })
-
-    try {
-        const currentProfesseur = await users.findByPk(professeurid)
-        const result = await currentProfesseur.getMatieres()
-        res.status(200).json({ data: result, message: 'Matière retournée!' })
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-}
-
 export const createUserRole = async (req, res) => {
     const id = req.params.id
     if (!id) res.status(404).json({ error: true, message: error.message })
@@ -191,7 +158,6 @@ export const getUserRoles = async (req, res) => {
     const userId = req.params.id
     if (!userId) res.status(404).json({ error: true, message: error.message })
 
-
     try {
         const currentUser = await users.findByPk(userId)
         const result = await currentUser.getRoles()
@@ -201,41 +167,36 @@ export const getUserRoles = async (req, res) => {
     }
 }
 
-// Problème avec les getMatieres, createMatiere car déja utiliser pour Professeur
-// TODO: Ajouter la fonctionnalité d'ajouter une matiere a un user. (Table: UsersMatieres)
-// Toute en vérifiant si la matière existe bien en checkant (Table: matières)
+export const createUserMatiere = async (req, res) => {
+    const userId = req.params.id
+    if (!userId) res.status(404).json({ error: true, message: error.message })
 
-// export const createUserMatiere = async (req, res) => {
-//     const id = req.params.id
-//     if (!id) res.status(404).json({ error: true, message: error.message })
+    const { titre } = req.body
+    const newMatiere = { titre }
 
-//     const { nom } = req.body
-//     const newRole = { nom }
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array()})
+    }
 
-//     const errors = validationResult(req)
-//     if (!errors.isEmpty()) {
-//         return res.status(400).json({ errors: errors.array()})
-//     }
+    try {
+        const currentUser = await users.findByPk(userId)
+        const result = await currentUser.createMatiere(newMatiere)
+        res.status(201).json({ data: result, message: 'Matière ajouté!' })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
 
-//     try {
-//         const currentUser = await users.findByPk(id)
-//         const result = await currentUser.createRole(newRole)
-//         res.status(201).json({ data: result, message: 'Role ajouté!' })
-//     } catch (error) {
-//         res.status(400).json({ message: error.message })
-//     }
-// }
+export const getUserMatieres = async (req, res) => {
+    const userId = req.params.id
+    if (!userId) res.status(404).json({ error: true, message: error.message })
 
-// export const getUserMatieres = async (req, res) => {
-//     const userId = req.params.id
-//     if (!userId) res.status(404).json({ error: true, message: error.message })
-
-
-//     try {
-//         const currentUser = await users.findByPk(userId)
-//         const result = await currentUser.getMatieres()
-//         res.status(200).json({ data: result, message: 'Roles retournés!' })
-//     } catch (error) {
-//         res.status(400).json({ message: error.message })
-//     }
-// }
+    try {
+        const currentUser = await users.findByPk(userId)
+        const result = await currentUser.getMatieres()
+        res.status(200).json({ data: result, message: 'Matière retournés!' })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}

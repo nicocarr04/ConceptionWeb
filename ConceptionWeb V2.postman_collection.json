@@ -163,13 +163,40 @@
 			"name": "Users",
 			"item": [
 				{
+					"name": "userLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"contact@nicocarr.ca\",\r\n    \"mot_de_passe\": \"testahahah\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site-url}}/users/login",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "addUser",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nom\": \"Simon\",\n    \"prenom\": \"Batista\",\n    \"naissance\": \"2003-05-30\",\n    \"photo\": \"https://avatars.githubusercontent.com/u/77184162?v=4\",\n    \"telephone\": \"613-678-0742\",\n    \"email\": \"contact@simon.ca\",\n    \"mot_de_passe\": \"testahahah\"\n}",
+							"raw": "{\n    \"nom\": \"Nicolas\",\n    \"prenom\": \"Carriere\",\n    \"naissance\": \"2003-04-30\",\n    \"photo\": \"https://avatars.githubusercontent.com/u/77184162?v=4\",\n    \"telephone\": \"613-678-0642\",\n    \"email\": \"contact@nicocarr.ca\",\n    \"mot_de_passe\": \"testahahah\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -215,6 +242,40 @@
 							"variable": [
 								{
 									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserRole",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nom\": \"professeur\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site-url}}/users/:id/roles",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"roles"
+							],
+							"variable": [
+								{
+									"key": "id",
 									"value": "1"
 								}
 							]
@@ -223,13 +284,13 @@
 					"response": []
 				},
 				{
-					"name": "createProfesseurMatiere",
+					"name": "createUserMatiere",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"titre\": \"1\"\n}",
+							"raw": "{\n    \"titre\": \"MCV4U\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -237,38 +298,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{site-url}}/users/:pid/matieres",
+							"raw": "{{site-url}}/users/:id/matieres",
 							"host": [
 								"{{site-url}}"
 							],
 							"path": [
 								"users",
-								":pid",
+								":id",
 								"matieres"
-							],
-							"variable": [
-								{
-									"key": "pid",
-									"value": null
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getUserById",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{site-url}}/users/:id",
-							"host": [
-								"{{site-url}}"
-							],
-							"path": [
-								"users",
-								":id"
 							],
 							"variable": [
 								{
@@ -293,6 +330,30 @@
 							"path": [
 								"users",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site-url}}/users/:id",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -324,7 +385,32 @@
 					"response": []
 				},
 				{
-					"name": "getProfesseurMatieres",
+					"name": "getUserRoles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site-url}}/users/:id/roles",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"roles"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserMatieres",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -342,30 +428,6 @@
 								{
 									"key": "id",
 									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteUser",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{site-url}}/users/:id",
-							"host": [
-								"{{site-url}}"
-							],
-							"path": [
-								"users",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "2"
 								}
 							]
 						}
@@ -406,110 +468,23 @@
 					"response": []
 				},
 				{
-					"name": "userLogin",
+					"name": "deleteUser",
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"contact@nicocarr.ca\",\r\n    \"mot_de_passe\": \"testahahah\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{site-url}}/users/login",
+							"raw": "{{site-url}}/users/:id",
 							"host": [
 								"{{site-url}}"
 							],
 							"path": [
 								"users",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createUserRole",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"nom\": \"admin\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{site-url}}/users/:id/roles",
-							"host": [
-								"{{site-url}}"
-							],
-							"path": [
-								"users",
-								":id",
-								"roles"
+								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getUserRoles",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{site-url}}/users/:id/role",
-							"host": [
-								"{{site-url}}"
-							],
-							"path": [
-								"users",
-								":id",
-								"role"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createUserMatiere",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{site-url}}/users/:id/matieres",
-							"host": [
-								"{{site-url}}"
-							],
-							"path": [
-								"users",
-								":id",
-								"matieres"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": null
+									"value": "2"
 								}
 							]
 						}
