@@ -1,26 +1,28 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import helmet from 'helmet';
-import compression from 'compression';
-import passport from 'passport';
+
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import helmet from 'helmet'
+import compression from 'compression'
+import passport from 'passport'
+
 import fs from 'fs'
 import https from 'https'
 import path from 'path'
-import database from './connection.js'
 
-import notesRoutes from './routes/notesRoutes.js'
-import usersRoutes from './routes/usersRoutes.js'
+import database from './connection.js'
 
 import notreStrategy from './auth/strategies.js'
 
-
-import redirectToHttps from './certificats/redirectHTTPS.js'
-
-
 database.sync()
 
-const PORT = process.env.PORT
+import notesRoutes from './routes/notesRoutes.js'
+import userRoutes from './routes/usersRoutes.js';
+import redirectToHttps from './certificats/redirectHTTPS.js'
+
+const PORT = process.env.PORT || 5500
+
+// console.log('ENV',dotenv.config().parsed)
 
 const app = express()
 
@@ -33,9 +35,11 @@ app.use(passport.initialize())
 app.use(redirectToHttps)
 passport.use(notreStrategy)
 
-app.use('/notes',notesRoutes)
-app.use('/users',usersRoutes)
+app.use('/notes', notesRoutes)
+app.use('/users', userRoutes)
 
+
+//Information du certificat
 const certificatOptions = {
     key: fs.readFileSync(path.resolve('./certificats/localhost.key')),
     cert: fs.readFileSync(path.resolve('./certificats/localhost.crt')),
@@ -43,5 +47,11 @@ const certificatOptions = {
 
 
 const server = https.createServer(certificatOptions, app)
+server.listen(PORT, () => console.log(`Serveur running on port ${PORT}`))
 
-app.listen(PORT, () => console.log(`Serveur running on port ${PORT}`))
+// app.listen(PORT, () => console.log(`Serveur running on port ${PORT}`))
+
+
+
+
+
