@@ -10,7 +10,7 @@ export const verifierToken = (req, res, next) => {
     const token = bearerToken.split(' ')[1]
 
     //Verifier que le token est bien present sinon retourner un message d'erreur
-    if (!token) return res.status(403).json({ message: 'Pas autorisé a voir ces données!' })
+    if (!token) return res.status(403).json({ message: 'Pas autorise a voir ces donnees' })
 
     //Verifierque le token est bien pour cet utilisateur
     jwt.verify(token, process.env.TOKEN_SECRET, (error, valeurDecode) => {
@@ -31,20 +31,20 @@ export const isAdmin = async (req, res, next) => {
     const userId = req.userId
 
     //Retourner ce message si pas de userId
-    if (!userId) return res.status(403).json({ message: "Pas d'utilisateur!" })
+    if (!userId) return res.status(403).json({ message: "Pas d'utilisateur"})
 
     try {
         const user = await users.findByPk(userId)
 
         //Si pas de user, retourner ce message
-        if (!user) return res.status(404).json({ message: 'utilisateur non existant!' })
+        if (!user) return res.status(404).json({ message: 'utilisateur non existant' })
 
         try {
             //Extraire les roles de l'utilisateur de la base de donnee
             const roles = await user.getRoles()
 
             //Si pas de roles, retourner ce message
-            if (!roles.length) return res.status(404).json({ message: 'Pas de roles!' })
+            if (!roles.length) return res.status(404).json({ message: 'Pas de roles' })
 
             //Verifier que l'utilisateur est admin
             const hasAdminRight = roles.map(role => role.nom).find(nom => nom.toLowerCase() === 'admin')
@@ -54,7 +54,7 @@ export const isAdmin = async (req, res, next) => {
             }
 
             //Si l'utilisateur n'est pas admin, envoyer ce message
-            return res.status(403).json({ message: 'Doit avoir les droits admin!' })
+            return res.status(403).json({ message: 'Doit avoir les droits admin' })
 
         } catch (error) {
             return res.status(403).json({ message: error.message })
@@ -66,44 +66,35 @@ export const isAdmin = async (req, res, next) => {
     }
 }
 
-// Verifier si quelqu'un a le droit professeur
-export const isProfesseur = async (req, res, next) => {
 
-    //Extraire le userId de la requete precedente
+//Le meme middleware que precedemment avec then...catch blocs
+export const isProfesseur = (req, res, next) => {
     const userId = req.userId
 
-    //Retourner ce message si pas de userId
-    if (!userId) return res.status(403).json({ message: "Pas d'utilisateur!" })
+    if (!userId) return res.status(403).json({ message: "Pas d'utilisateur" })
 
-    try {
-        const user = await users.findByPk(userId)
+    users.findByPk(userId).then(user => {
 
-        //Si pas de user, retourner ce message
-        if (!user) return res.status(404).json({ message: 'utilisateur non existant!' })
+        if (!user) return res.status(404).json({ message: 'utilisateur non existant' })
 
-        try {
-            //Extraire les roles de l'utilisateur de la base de donnee
-            const roles = await user.getRoles()
+        user.getRoles().then(roles => {
 
-            //Si pas de roles, retourner ce message
-            if (!roles.length) return res.status(404).json({ message: 'Pas de roles!' })
+            const hasAdminRight = roles.map(role => role.nom).find(nom => nom.toLowerCase() === 'professeur')
 
-            //Verifier que l'utilisateur est professeur
-            const hasProfessorRight = roles.map(role => role.nom).find(nom => nom.toLowerCase() === 'professeur')
-            if (hasProfessorRight) {
+            if (hasAdminRight) {
                 next()
                 return
             }
+            return res.status(403).json({ message: 'Doit avoir les droits professeur' })
 
-            //Si l'utilisateur n'est pas professeur, envoyer ce message
-            return res.status(403).json({ message: 'Doit avoir les droits professeur!' })
+        }).catch(error => {
+            res.status(404).jscon({ message: error.message })
 
-        } catch (error) {
-            return res.status(403).json({ message: error.message })
-        }
+        })
 
-    } catch (error) {
-        return res.status(403).json({ message: error.message })
+    }).catch(error => {
+        res.status(401).json({ message: error.message })
+    })
 
-    }
+
 }

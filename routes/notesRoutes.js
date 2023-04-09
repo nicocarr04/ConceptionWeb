@@ -6,7 +6,7 @@ import { verifierToken, isProfesseur, isAdmin } from '../auth/autorisations.js'
 const router = Router()
 
 router
-    .get('/', passport.authenticate('jwt', { session: false }), verifierToken, isProfesseur, isAdmin, getAllNotes)
+    .get('/', passport.authenticate('jwt', { session: false }), verifierToken, isAdmin, isProfesseur, getAllNotes)
     .get('/:id', getNoteById)
     .get('/:matiereid', getNoteByMatiereId)
     .get('/:userid', getNoteByUserId)

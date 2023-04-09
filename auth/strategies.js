@@ -1,7 +1,6 @@
 import passport from "passport";
 import { users } from '../models/index.js'
-import passportJWT from "passport-jwt"   
-
+import passportJWT from "passport-jwt" 
 
 const { ExtractJwt, Strategy } = passportJWT
 

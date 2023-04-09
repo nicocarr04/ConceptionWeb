@@ -18,7 +18,7 @@ export const userLogin = async (req, res) => {
             if (verifyPassword) {
                 let payload = { id: user.id }
                 let token = jwt.sign(payload, process.env.TOKEN_SECRET)
-                res.status(200).json({ data: { user, token } })
+                res.status(200).json({ data: { user, token, payload } })
             } else {
                 res.status(401).json({ message: "Le mot de passe est incorrect!" })
             }
