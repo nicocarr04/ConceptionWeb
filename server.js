@@ -36,7 +36,7 @@ app.use(passport.initialize())
 app.use(redirectToHttps)
 passport.use(notreStrategy)
 
-app.use('/matiers', matieresRoutes)
+app.use('/matieres', matieresRoutes)
 app.use('/notes', notesRoutes)
 app.use('/users', userRoutes)
 

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "8a865e38-a4f1-47f2-9a27-a884e2225d43",
-		"name": "ConceptionWeb V2",
+		"name": "ConceptionWeb V3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "19427368"
 	},
@@ -62,30 +62,6 @@
 					"response": []
 				},
 				{
-					"name": "getNoteByMatiereId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{site-url}}/notes/:matiereid",
-							"host": [
-								"{{site-url}}"
-							],
-							"path": [
-								"notes",
-								":matiereid"
-							],
-							"variable": [
-								{
-									"key": "matiereid",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getNoteByUserId",
 					"request": {
 						"method": "GET",
@@ -114,6 +90,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"note\": \"50%\",\n    \"date\": \"2003-04-30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{site-url}}/notes/:id",
 							"host": [
@@ -145,6 +130,144 @@
 							],
 							"path": [
 								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Matieres",
+			"item": [
+				{
+					"name": "getAllMatieres",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site-url}}/matieres/",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"matieres",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMatiereById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site-url}}/matieres/:id",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"matieres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMatiereByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site-url}}/matieres/:userid",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"matieres",
+								":userid"
+							],
+							"variable": [
+								{
+									"key": "userid",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateMatiere",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titre\": \"TGIE2U\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site-url}}/matieres/:id",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"matieres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteMatiere",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{site-url}}/matieres/:id",
+							"host": [
+								"{{site-url}}"
+							],
+							"path": [
+								"matieres",
 								":id"
 							],
 							"variable": [
@@ -196,7 +319,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nom\": \"Nicolas\",\n    \"prenom\": \"Carriere\",\n    \"naissance\": \"2003-04-30\",\n    \"photo\": \"https://avatars.githubusercontent.com/u/77184162?v=4\",\n    \"telephone\": \"613-678-0642\",\n    \"email\": \"contact@nicocarr.ca\",\n    \"mot_de_passe\": \"testahahah\"\n}",
+							"raw": "{\n    \"nom\": \"Doe\",\n    \"prenom\": \"John\",\n    \"naissance\": \"2000-01-09\",\n    \"photo\": \"https://avatars.githubusercontent.com/u/126510335?v=4\",\n    \"telephone\": \"999-999-9999\",\n    \"email\": \"contact@johndoe.com\",\n    \"mot_de_passe\": \"doecorp01\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -204,10 +327,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{site-url}}/users",
+							"raw": "https://localhost:5500/users",
+							"protocol": "https",
 							"host": [
-								"{{site-url}}"
+								"localhost"
 							],
+							"port": "5500",
 							"path": [
 								"users"
 							]
@@ -222,7 +347,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"note\": \"100%\",\n    \"date\": \"2023-04-30\"\n}",
+							"raw": "{\n    \"note\": \"99%\",\n    \"date\": \"2023-01-15\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -242,7 +367,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -441,7 +566,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nom\": \"Simon\",\n    \"prenom\": \"Batista\",\n    \"naissance\": \"2003-05-30\",\n    \"photo\": \"https://avatars.githubusercontent.com/u/77184162?v=4\",\n    \"telephone\": \"613-678-0742\",\n    \"email\": \"contact@simon.ca\",\n    \"mot_de_passe\": \"testahahah\"\n}",
+							"raw": "{\n    \"nom\": \"Doe\",\n    \"prenom\": \"Jane\",\n    \"naissance\": \"2001-01-20\",\n    \"photo\": \"https://avatars.githubusercontent.com/u/77184162?v=4\",\n    \"telephone\": \"613-678-0742\",\n    \"email\": \"contact@janedoe.ca\",\n    \"mot_de_passe\": \"doecorp02\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -484,7 +609,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -517,7 +642,7 @@
 	"variable": [
 		{
 			"key": "site-url",
-			"value": "http://127.0.0.1:5600",
+			"value": "https://127.0.0.1:5500",
 			"type": "string"
 		},
 		{
