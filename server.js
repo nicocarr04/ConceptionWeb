@@ -16,6 +16,7 @@ import notreStrategy from './auth/strategies.js'
 
 database.sync()
 
+import matieresRoutes from './routes/matieresRoutes.js'
 import notesRoutes from './routes/notesRoutes.js'
 import userRoutes from './routes/usersRoutes.js';
 import redirectToHttps from './certificats/redirectHTTPS.js'
@@ -35,6 +36,7 @@ app.use(passport.initialize())
 app.use(redirectToHttps)
 passport.use(notreStrategy)
 
+app.use('/matiers', matieresRoutes)
 app.use('/notes', notesRoutes)
 app.use('/users', userRoutes)
 

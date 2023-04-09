@@ -1,4 +1,4 @@
-/* import { matieres } from "../models/index.js"
+import { matieres } from "../models/index.js"
 
 export const getAllMatieres = async (req, res) => {
     try {
@@ -60,4 +60,4 @@ export const updateMatiere = async (req, res) => {
     } catch (error) {
         res.status(404).json({ error: true, message: error.message })
     }
-} */
+} 
