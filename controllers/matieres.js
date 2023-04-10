@@ -21,7 +21,7 @@ export const getMatiereById = async (req, res) => {
 }
 
 // PS: Ce fier à getUserNotes
-export const getMatiereByProfesseurId = async (req, res) => {
+/*export const getMatiereByProfesseurId = async (req, res) => {
     const professeurid = req.params.id
     if (!professeurid) res.status(404).json({ error: true, message: error.message })
 
@@ -32,7 +32,7 @@ export const getMatiereByProfesseurId = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
-}
+}*/
 
 export const deleteMatiere = async (req, res) => {
     const { id } = req.params
